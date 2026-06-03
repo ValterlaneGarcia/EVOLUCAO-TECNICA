@@ -32,7 +32,7 @@ function rubricServerCallback(registration) {
     }
 }
 
-function searchDataServer(registration, callback, callback2) {
+function searchDataServerCallback(registration, callback, callback2) {
     setTimeout(() => {
       const dataServer = callback(registration,callback2);
       
@@ -46,7 +46,7 @@ function searchDataServer(registration, callback, callback2) {
 
 }
 
-searchDataServer(123, registrationServerCallback,rubricServerCallback);
+searchDataServerCallback(123, registrationServerCallback,rubricServerCallback);
 
 
 //Promise
