@@ -16,12 +16,12 @@ function handlePostServidor(req, res) {
     req.on('data', chuck => body.push(chuck));
     req.on('end', () => {
         try {
-            const dado = JSON.parse(Buffer,concat(body).toString());
-            const novoID = Object.keys(servidoresDados).length + 1;
-            servidoresDados[novoID] = dado;
-            res.statusCode = 201;
-            res.setHeader('Content-Type', 'application/json');
-            res.end(JSON.stringify(dado));
+            const dado = JSON.parse(Buffer.concat(body).toString());
+            const novoServidor = { id: servidoresDados.length + 1, ...dado }
+            servidoresDados.push(novoServidor)
+            res.statusCode = 201
+            res.setHeader('Content-Type', 'application/json')
+            res.end(JSON.stringify(novoServidor))
         } catch (e) {
             res.statusCode = 400;
             res.end('JSON inválido');
@@ -62,23 +62,4 @@ http
 
 // curl -X POST http://localhost:8080/servidores \
 //   -H "Content-Type: application/json" \
-//   -d '{
-//     "3": {
-//       "id": 987,
-//       "nome": "Carlos Mendes",
-//       "nascimento": "10/05/1980",
-//       "rubrica": "R310"
-//     },
-//     "4": {
-//       "id": 741,
-//       "nome": "Fernanda Costa",
-//       "nascimento": "28/09/1991",
-//       "rubrica": "R455"
-//     },
-//     "5": {
-//       "id": 852,
-//       "nome": "Ricardo Alves",
-//       "nascimento": "14/12/1987",
-//       "rubrica": "R720"
-//     }
-//   }'
+//   -d '{"nome": "Carlos Mendes", "nascimento": "10/05/1980", "rubrica": "R310"}'
